@@ -4,6 +4,7 @@ int	ft_atoi(const char *str)
 	int	res;
 	int	i;
 
+	i = 0;
 	while (str[i] == 32)
 		i++;
 	sign = 1;
