@@ -2,17 +2,22 @@
 
 static int	find_int_len(int n)
 {
-	int	len;
+	int				len;
+	unsigned int	ncpy;
 
 	len = 0;
-	if (n <= 0)
+	if (n < 0)
 	{
+		ncpy = -n;
 		len++;
-		n = -n;
 	}
-	while (n)
+	if (n == 0)
+		return (1);
+	if (n > 0)
+		ncpy = n;
+	while (ncpy)
 	{
-		n /= 10;
+		ncpy /= 10;
 		len++;
 	}
 	return (len);
@@ -20,24 +25,24 @@ static int	find_int_len(int n)
 
 char	*ft_itoa(int n)
 {
-	char	*str;
-	int		nlen;
-	int		ncpy;
+	char			*str;
+	int				nlen;
+	unsigned int	ncpy;
 
-	ncpy = n;
 	nlen = find_int_len(n);
 	str = malloc(nlen + 1);
+	ncpy = 0;
 	if (!str)
 		return (0);
-	if (ncpy == 0)
-		return (ft_strdup("0"));
-	if (ncpy == -2147483648)
-		return (ft_strdup("-2147483648"));
-	if (ncpy < 0)
+	if (n < 0)
 	{
+		ncpy = -n;
 		str[0] = '-';
-		ncpy = -ncpy;
 	}
+	if (n > 0)
+		ncpy = n;
+	if (ncpy == 0)
+		str[0] = '0';
 	while (ncpy)
 	{
 		str[--nlen] = ncpy % 10 + '0';

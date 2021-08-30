@@ -36,6 +36,17 @@ ft_putendl_fd.c \
 ft_putnbr_fd.c
 OBJFILE = $(SRCFILE:.c=.o)
 
+BONUS_SRC = ft_lstnew.c \
+ft_lstadd_front.c \
+ft_lstsize.c \
+ft_lstlast.c \
+ft_lstadd_back.c \
+ft_lstdelone.c \
+ft_lstclear.c \
+ft_lstiter.c  \
+ft_lstmap.c
+BONUS_OBJ = $(BONUS_SRC:.c=.o)
+
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
@@ -47,8 +58,14 @@ $(NAME): $(OBJFILE)
 $(OBJFILE): $(SRCFILE)
 	$(CC) -c $(CFLAGS) $^
 
+$(BONUS_OBJ): $(BONUS_SRC)
+	$(CC) -c $(CFLAGS) $^
+
+bonus: $(BONUS_OBJ)
+	ar rcs $(NAME) $^
+
 clean:
-	rm -f $(OBJFILE)
+	rm -f $(OBJFILE) $(BONUS_OBJ)
 
 fclean: clean
 	rm -f $(NAME)

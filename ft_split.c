@@ -20,48 +20,30 @@ static int	splitcount(char const *s, char c)
 	return (count);
 }
 
-static int	wordlen(char const *s, char c)
-{
-	int	len;
-	int	i;
-
-	i = 0;
-	len = 0;
-	while (s[i] == c)
-		i++;
-	while (s[i] != c && s[i])
-	{
-		i++;
-		len++;
-	}
-	return (len);
-}
-
 char	**ft_split(char const *s, char c)
 {
 	char	**ptr;
 	int		i;
 	int		j;
-	int		k;
+	int		start;
 	int		sc;
 
 	i = 0;
 	j = 0;
+	start = 0;
 	sc = splitcount(s, c);
 	ptr = malloc(sizeof(char *) * (splitcount(s, c) + 1));
-	if (!s || !ptr)
+	if (!ptr)
 		return (0);
 	while (sc--)
 	{
-		k = 0;
-		ptr[j] = malloc(wordlen(&s[i], c) + 1);
-		while (s[i] == c)
-			i++;
-		while (s[i] != c)
-			ptr[j][k++] = s[i++];
-		ptr[j][k] = '\0';
-		j++;
+		while (s[j] == c)
+			j++;
+		start = j;
+		while ((s[j] != c) && (s[j]))
+			j++;
+		ptr[i++] = ft_substr(s, start, (j - start));
 	}
-	ptr[j] = 0;
+	ptr[i] = 0;
 	return (ptr);
 }
