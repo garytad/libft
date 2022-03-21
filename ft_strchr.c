@@ -6,6 +6,8 @@ char	*ft_strchr(const char *s, int c)
 	char	*ptr;
 	char	ch;
 
+	if (!s)
+		return (NULL);
 	ptr = (char *)s;
 	ch = (char)c;
 	i = 0;
